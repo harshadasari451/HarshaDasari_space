@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harsha Vardhan Dasari — ML Researcher & Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ──────────────────────────────────────── */
+    :root {
+      --space:    #010008;
+      --deep:     #04001a;
+      --card:     rgba(12, 4, 40, 0.82);
+      --card-h:   rgba(20, 6, 60, 0.90);
+      --border:   rgba(167, 139, 250, 0.18);
+      --border-h: rgba(167, 139, 250, 0.45);
+      --purple:   #a78bfa;
+      --indigo:   #818cf8;
+      --cyan:     #22d3ee;
+      --teal:     #2dd4bf;
+      --gold:     #fbbf24;
+      --pink:     #f472b6;
+      --green:    #4ade80;
+      --red-star: #fca5a5;
+      --text:     #e2e8f0;
+      --muted:    #64748b;
+      --dim:      #94a3b8;
+      --mono:     'JetBrains Mono', monospace;
+      --display:  'Orbitron', sans-serif;
+      --body:     'Space Grotesk', sans-serif;
+    }
+
+    /* ── RESET ───────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--space);
+      color: var(--text);
+      font-family: var(--body);
+      font-size: 15px;
+      line-height: 1.75;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── SCROLLBAR ───────────────────────────────────── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--space); }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, var(--purple), var(--cyan));
+      border-radius: 99px;
+    }
+
+    /* ── CANVAS STARFIELD ───────────────────────────── */
+    #starfield {
+      position: fixed; inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── NEBULAE ─────────────────────────────────────── */
+    .nebulae {
+      position: fixed; inset: 0;
+      z-index: 0; pointer-events: none;
+      overflow: hidden;
+    }
+    .nebula {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      animation: nebulaDrift 25s ease-in-out infinite alternate;
+    }
+    .n1 {
+      width: 700px; height: 600px;
+      background: radial-gradient(circle, rgba(88,28,235,0.22), transparent 65%);
+      top: -200px; left: -200px;
+      animation-duration: 30s;
+    }
+    .n2 {
+      width: 600px; height: 700px;
+      background: radial-gradient(circle, rgba(6,182,212,0.16), transparent 65%);
+      bottom: -100px; right: -150px;
+      animation-duration: 22s; animation-delay: -10s;
+    }
+    .n3 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(219,39,119,0.10), transparent 65%);
+      top: 45%; left: 30%;
+      animation-duration: 35s; animation-delay: -6s;
+    }
+    .n4 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(251,191,36,0.08), transparent 65%);
+      top: 20%; right: 15%;
+      animation-duration: 28s; animation-delay: -18s;
+    }
+    @keyframes nebulaDrift {
+      0%   { transform: translate(0,0) scale(1); }
+      50%  { transform: translate(40px, 30px) scale(1.1); }
+      100% { transform: translate(-20px, 60px) scale(0.95); }
+    }
+
+    /* ── METEOR SHOWER ───────────────────────────────── */
+    .meteors {
+      position: fixed; inset: 0;
+      z-index: 0; pointer-events: none;
+      overflow: hidden;
+    }
+    .meteor {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(196,181,253,0.9), white);
+      border-radius: 99px;
+      transform: rotate(-42deg) translateX(-400px);
+      opacity: 0;
+      filter: drop-shadow(0 0 4px rgba(196,181,253,0.9));
+    }
+    .meteor::after {
+      content: '';
+      position: absolute; right: -1px; top: -2px;
+      width: 4px; height: 4px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 6px 3px rgba(255,255,255,0.9), 0 0 14px 5px rgba(196,181,253,0.6);
+    }
+    @keyframes meteor {
+      0%   { transform: rotate(-42deg) translateX(-400px); opacity: 0; }
+      3%   { opacity: 1; }
+      70%  { opacity: 0.8; }
+      100% { transform: rotate(-42deg) translateX(140vw); opacity: 0; }
+    }
+    .m1 { width:200px; top:8%;  left:20%; animation: meteor 9s  linear infinite 0s;  }
+    .m2 { width:140px; top:3%;  left:55%; animation: meteor 11s linear infinite 4s;  }
+    .m3 { width:170px; top:18%; left:72%; animation: meteor 7s  linear infinite 8s;  }
+    .m4 { width:120px; top:1%;  left:38%; animation: meteor 13s linear infinite 2s;  }
+    .m5 { width:220px; top:12%; left:80%; animation: meteor 8s  linear infinite 6s;  }
+    .m6 { width:150px; top:5%;  left:10%; animation: meteor 10s linear infinite 12s; }
+
+    /* ── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem; height: 62px;
+      background: rgba(1,0,8,0.65);
+      backdrop-filter: blur(24px) saturate(160%);
+      -webkit-backdrop-filter: blur(24px) saturate(160%);
+      border-bottom: 1px solid rgba(167,139,250,0.12);
+    }
+    .nav-logo {
+      font-family: var(--display);
+      font-size: 0.85rem; font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--text);
+    }
+    .nav-logo em { color: var(--purple); font-style: normal; }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, var(--purple), var(--cyan));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.25s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* ── SECTION DIVIDER ─────────────────────────────── */
+    .div-aurora {
+      position: relative; z-index: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(139,92,246,0.5) 25%, rgba(34,211,238,0.7) 50%, rgba(244,114,182,0.5) 75%, transparent 100%);
+    }
+    .div-aurora::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: inherit;
+      filter: blur(6px);
+      opacity: 0.6;
+    }
+
+    /* ── HERO ────────────────────────────────────────── */
+    #hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 7rem 2rem 4rem;
+      overflow: hidden;
+    }
+
+    /* Subtle dot grid */
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(rgba(167,139,250,0.12) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, black 30%, transparent 100%);
+      pointer-events: none;
+    }
+
+    /* ── MOON ORBIT SYSTEM ───────────────────────────── */
+
+    /* Anchor point — moon revolves around this */
+    .orbit-anchor {
+      position: absolute; top: 32%; right: 11%;
+      width: 0; height: 0; pointer-events: none;
+    }
+
+    /* Visible elliptical orbit path */
+    .orbit-path {
+      position: absolute;
+      width: 320px; height: 180px;
+      border-radius: 50%;
+      border: 1px dashed rgba(167,139,250,0.16);
+      top: -90px; left: -160px;
+      transform: rotate(-8deg);
+      pointer-events: none;
+    }
+
+    /* Moon travels along the orbit */
+    .moon-wrap {
+      position: absolute; pointer-events: none;
+      animation: moonRevolvePath 26s linear infinite;
+    }
+    @keyframes moonRevolvePath {
+      0%   { transform: translate(160px,  0px);  }
+      25%  { transform: translate(  0px, -90px); }
+      50%  { transform: translate(-160px,  0px); }
+      75%  { transform: translate(  0px,  90px); }
+      100% { transform: translate(160px,  0px);  }
+    }
+
+    /* Small satellite orbiting the moon */
+    .orbit-ring {
+      position: absolute; inset: -38px;
+      border-radius: 50%;
+      border: 1px dashed rgba(167,139,250,0.28);
+      animation: orbitSpin 8s linear infinite;
+    }
+    .satellite {
+      position: absolute; top: -7px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 8px; color: rgba(196,181,253,0.95);
+      text-shadow: 0 0 8px rgba(196,181,253,0.9), 0 0 20px rgba(196,181,253,0.5);
+    }
+    @keyframes orbitSpin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    /* Moon shell — holds glow, clips the surface */
+    .moon {
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      position: relative; overflow: hidden;
+      box-shadow:
+        0 0 60px 16px rgba(148,168,255,0.16),
+        0 0 140px 60px rgba(80,110,255,0.08);
+    }
+
+    /* Rotating surface */
+    .moon-surface {
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle at 38% 35%,
+        #eef2ff 0%, #d0d8f8 8%, #a0b0e0 28%,
+        #6070c0 52%, #303880 72%, #101830 95%);
+      animation: moonSpin 50s linear infinite;
+    }
+    @keyframes moonSpin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    /* Craters rotate with surface */
+    .crater {
+      position: absolute; border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, rgba(255,255,255,0.04), rgba(0,0,0,0.38));
+      box-shadow: inset 2px 2px 5px rgba(0,0,0,0.6), inset -1px -1px 2px rgba(255,255,255,0.07);
+    }
+
+    /* Fixed crescent shadow — stays put while surface spins */
+    .moon-shadow {
+      position: absolute; inset: 0; border-radius: 50%;
+      background: transparent;
+      box-shadow: inset -55px -12px 70px rgba(0,0,0,0.92);
+      pointer-events: none;
+    }
+
+    /* ── SATURN ──────────────────────────────────────── */
+    .saturn-wrap {
+      position: absolute; bottom: 14%; left: 5%;
+      pointer-events: none;
+      animation: saturnFloat 18s ease-in-out infinite;
+    }
+    @keyframes saturnFloat {
+      0%,100% { transform: translateY(0) rotate(-2deg); }
+      50%      { transform: translateY(-18px) rotate(2deg); }
+    }
+    .saturn {
+      width: 88px; height: 88px; border-radius: 50%;
+      background: radial-gradient(circle at 40% 35%,
+        #fef9c3, #fde68a 20%, #fbbf24 45%, #d97706 68%, #78350f 90%);
+      box-shadow:
+        0 0 30px rgba(251,191,36,0.28),
+        0 0 70px rgba(251,191,36,0.10),
+        inset -22px -8px 28px rgba(0,0,0,0.75);
+      position: relative;
+      animation: saturnSpin 35s linear infinite;
+    }
+    @keyframes saturnSpin {
+      from { filter: brightness(1); }
+      to   { filter: brightness(1.05); }
+    }
+    /* Ring */
+    .saturn-ring {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%) rotateX(72deg);
+      width: 175%; height: 175%;
+      border-radius: 50%;
+      border: 9px solid rgba(251,191,36,0.28);
+      border-top-color: rgba(251,191,36,0.55);
+      border-bottom-color: rgba(251,191,36,0.08);
+      box-shadow: 0 0 12px rgba(251,191,36,0.2);
+    }
+    /* Inner ring band */
+    .saturn-ring::after {
+      content: '';
+      position: absolute; inset: 5px;
+      border-radius: 50%;
+      border: 4px solid rgba(251,191,36,0.14);
+    }
+
+    /* ── FLOATING ASTEROIDS ──────────────────────────── */
+    .asteroid {
+      position: absolute; border-radius: 40%;
+      background: rgba(148,163,184,0.55);
+      pointer-events: none;
+    }
+    .as1 { width:8px;  height:6px;  top:18%; left:12%;  animation: astDrift1 22s ease-in-out infinite; }
+    .as2 { width:5px;  height:4px;  top:60%; left:78%;  animation: astDrift2 28s ease-in-out infinite; }
+    .as3 { width:10px; height:7px;  top:75%; right:20%; animation: astDrift3 20s ease-in-out infinite; }
+    .as4 { width:6px;  height:5px;  top:28%; right:30%; animation: astDrift1 25s ease-in-out infinite 5s; }
+    .as5 { width:4px;  height:3px;  top:45%; left:22%;  animation: astDrift2 32s ease-in-out infinite 8s; }
+
+    @keyframes astDrift1 {
+      0%   { transform: translate(0,0)       rotate(0deg);   }
+      33%  { transform: translate(35px,-22px) rotate(130deg); }
+      66%  { transform: translate(-18px,18px) rotate(260deg); }
+      100% { transform: translate(0,0)       rotate(360deg); }
+    }
+    @keyframes astDrift2 {
+      0%   { transform: translate(0,0)       rotate(0deg);   }
+      50%  { transform: translate(-28px,30px) rotate(180deg); }
+      100% { transform: translate(0,0)       rotate(360deg); }
+    }
+    @keyframes astDrift3 {
+      0%   { transform: translate(0,0)       rotate(0deg);   }
+      40%  { transform: translate(22px,-35px) rotate(160deg); }
+      80%  { transform: translate(-15px,10px) rotate(300deg); }
+      100% { transform: translate(0,0)       rotate(360deg); }
+    }
+
+    /* Horizon glow at hero bottom */
+    .horizon {
+      position: absolute; bottom: -60px; left: 50%;
+      transform: translateX(-50%);
+      width: 700px; height: 300px;
+      background: radial-gradient(ellipse at 50% 100%, rgba(88,28,235,0.22) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Hero content */
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      padding: 0.3rem 1.1rem;
+      background: rgba(139,92,246,0.1);
+      border: 1px solid rgba(139,92,246,0.35);
+      border-radius: 9999px;
+      font-family: var(--display);
+      font-size: 0.62rem; font-weight: 600;
+      color: #c4b5fd; letter-spacing: 0.14em;
+      margin-bottom: 2rem; position: relative;
+    }
+    .badge-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: glow 2s ease-in-out infinite;
+    }
+    @keyframes glow {
+      0%,100% { opacity:1; box-shadow: 0 0 8px var(--green); }
+      50%      { opacity:0.5; box-shadow: 0 0 3px var(--green); }
+    }
+
+    .hero-name {
+      font-family: var(--display);
+      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.08;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .grad-text {
+      background: linear-gradient(125deg, #c4b5fd 0%, #818cf8 35%, #22d3ee 70%, #2dd4bf 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-typing {
+      font-family: var(--mono);
+      font-size: clamp(0.9rem, 2vw, 1.15rem);
+      color: var(--dim); margin-bottom: 1.4rem;
+      letter-spacing: 0.04em;
+    }
+    .typed-word { color: var(--cyan); }
+    .cursor {
+      display: inline-block;
+      width: 2px; height: 1em;
+      background: var(--cyan);
+      vertical-align: middle;
+      margin-left: 2px;
+      box-shadow: 0 0 6px var(--cyan);
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .hero-sub {
+      max-width: 540px; color: var(--muted);
+      font-size: 0.95rem; margin-bottom: 2.5rem; line-height: 1.8;
+    }
+    .hero-btns {
+      display: flex; gap: 0.8rem; flex-wrap: wrap;
+      justify-content: center; margin-bottom: 4rem;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.65rem 1.5rem; border-radius: 8px;
+      font-family: var(--body);
+      font-size: 0.83rem; font-weight: 600;
+      text-decoration: none; transition: all 0.22s; cursor: pointer;
+      letter-spacing: 0.02em;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #7c3aed, #4f46e5);
+      color: #fff; border: 1px solid transparent;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(124,58,237,0.55), 0 0 60px rgba(124,58,237,0.2);
+    }
+    .btn-ghost {
+      background: rgba(255,255,255,0.04);
+      color: var(--dim); border: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+    .btn-ghost:hover {
+      border-color: var(--border-h); color: var(--text);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(167,139,250,0.2);
+    }
+
+    .hero-stats {
+      display: flex; gap: 2.5rem; flex-wrap: wrap;
+      justify-content: center; position: relative;
+    }
+    .stat { text-align: center; }
+    .stat-n {
+      font-family: var(--display);
+      font-size: 1.8rem; font-weight: 700;
+      background: linear-gradient(135deg, #c4b5fd, #22d3ee);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-l { font-size: 0.68rem; color: var(--muted); margin-top: 0.15rem; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    .scroll-hint {
+      position: absolute; bottom: 2.2rem; left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--display); font-size: 0.6rem;
+      letter-spacing: 0.18em; color: var(--muted);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      animation: bob 2.8s ease-in-out infinite;
+    }
+    .scroll-hint svg { opacity: 0.35; }
+    @keyframes bob {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(7px); }
+    }
+
+    /* ── SECTION BASE ────────────────────────────────── */
+    section { position: relative; z-index: 1; padding: 6rem 0; }
+    .container { max-width: 940px; margin: 0 auto; padding: 0 2rem; }
+
+    .sec-tag {
+      font-family: var(--display);
+      font-size: 0.63rem; font-weight: 600;
+      color: var(--purple); letter-spacing: 0.18em;
+      text-transform: uppercase; margin-bottom: 0.5rem;
+    }
+    .sec-title {
+      font-family: var(--display);
+      font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+      font-weight: 700; letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+    }
+    .sec-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 3rem; }
+
+    /* ── GLASS CARD ──────────────────────────────────── */
+    .glass {
+      background: var(--card);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 16px;
+      transition: border-color 0.25s, background 0.25s, transform 0.28s, box-shadow 0.28s;
+    }
+    .glass:hover {
+      border-color: var(--border-h);
+      background: var(--card-h);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(88,28,235,0.25), 0 0 0 1px rgba(167,139,250,0.1);
+    }
+
+    /* ── ABOUT ───────────────────────────────────────── */
+    #about { background: rgba(2,0,14,0.45); }
+
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2rem; align-items: start;
+    }
+    .terminal {
+      background: rgba(0,0,0,0.7);
+      border: 1px solid rgba(167,139,250,0.2);
+      border-radius: 14px; overflow: hidden;
+      backdrop-filter: blur(20px);
+    }
+    .terminal-bar {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      background: rgba(255,255,255,0.025);
+      border-bottom: 1px solid rgba(167,139,250,0.15);
+    }
+    .t-dot { width: 11px; height: 11px; border-radius: 50%; }
+    .t-dot.r { background: #ff5f57; }
+    .t-dot.y { background: #febc2e; }
+    .t-dot.g { background: #28c840; }
+    .terminal-title {
+      margin: 0 auto;
+      font-family: var(--mono); font-size: 0.7rem; color: var(--muted);
+    }
+    .terminal-body {
+      padding: 1.5rem; font-family: var(--mono);
+      font-size: 0.78rem; line-height: 2;
+    }
+    .tk { color: #f472b6; }
+    .tv { color: #a78bfa; }
+    .ts { color: #86efac; }
+    .tc { color: var(--muted); }
+    .tb { color: var(--cyan); }
+    .tn { color: var(--gold); }
+
+    .about-bio p { color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem; line-height: 1.85; }
+    .about-bio p strong { color: var(--text); }
+
+    .chip {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.32rem 0.9rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      font-size: 0.77rem; color: var(--dim);
+      margin: 0.22rem 0.18rem;
+      backdrop-filter: blur(8px);
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    .chip:hover {
+      border-color: rgba(167,139,250,0.5);
+      color: #c4b5fd;
+      box-shadow: 0 0 20px rgba(139,92,246,0.15);
+    }
+
+    /* ── EXPERIENCE ──────────────────────────────────── */
+    #experience { background: rgba(1,0,10,0.42); }
+
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 10px; bottom: 10px; width: 1px;
+      background: linear-gradient(180deg,
+        rgba(139,92,246,0.9) 0%,
+        rgba(34,211,238,0.7) 50%,
+        rgba(244,114,182,0.3) 85%,
+        transparent 100%);
+    }
+    .tl-item { position: relative; padding: 0 0 3.5rem 2rem; }
+    .tl-item:last-child { padding-bottom: 0; }
+
+    /* Planet dot */
+    .tl-planet {
+      position: absolute; left: -2.6rem; top: 4px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #c4b5fd, #6d28d9);
+      box-shadow: 0 0 10px rgba(139,92,246,0.8), 0 0 24px rgba(139,92,246,0.4);
+      z-index: 1;
+      animation: planetPulse 3s ease-in-out infinite;
+    }
+    .tl-item:nth-child(2) .tl-planet {
+      background: radial-gradient(circle at 35% 35%, #fde68a, #d97706);
+      box-shadow: 0 0 10px rgba(251,191,36,0.8), 0 0 24px rgba(251,191,36,0.4);
+    }
+    .tl-item:nth-child(3) .tl-planet {
+      background: radial-gradient(circle at 35% 35%, #6ee7b7, #059669);
+      box-shadow: 0 0 10px rgba(52,211,153,0.8), 0 0 24px rgba(52,211,153,0.4);
+    }
+    @keyframes planetPulse {
+      0%,100% { box-shadow: 0 0 10px rgba(139,92,246,0.8), 0 0 24px rgba(139,92,246,0.4); }
+      50%      { box-shadow: 0 0 16px rgba(139,92,246,1.0), 0 0 40px rgba(139,92,246,0.6); }
+    }
+
+    .tl-header {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 1rem; margin-bottom: 0.45rem;
+    }
+    .tl-role { font-family: var(--display); font-weight: 700; font-size: 0.88rem; color: var(--text); letter-spacing: 0.02em; }
+    .tl-org  { font-size: 0.82rem; color: var(--cyan); font-weight: 500; margin-top: 0.1rem; }
+    .tl-lab  { font-size: 0.75rem; color: var(--muted); font-style: italic; margin-top: 0.15rem; margin-bottom: 0.9rem; }
+    .tl-date {
+      font-family: var(--mono); font-size: 0.68rem; color: var(--muted);
+      background: rgba(167,139,250,0.08);
+      border: 1px solid rgba(167,139,250,0.2);
+      border-radius: 6px; padding: 0.18rem 0.6rem;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .tl-item ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .tl-item li {
+      font-size: 0.85rem; color: var(--muted);
+      padding-left: 1.3rem; position: relative;
+    }
+    .tl-item li::before {
+      content: '✦'; position: absolute; left: 0;
+      color: var(--purple); font-size: 0.55rem;
+      top: 0.3rem;
+    }
+    .tl-item li strong { color: #c4b5fd; font-weight: 500; }
+
+    /* ── PROJECTS ────────────────────────────────────── */
+    #projects { background: rgba(4,0,18,0.45); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+    .proj-card {
+      position: relative; overflow: hidden;
+      padding: 1.7rem; border-radius: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(18px);
+      transition: transform 0.28s, box-shadow 0.28s, border-color 0.25s;
+      cursor: default;
+    }
+    .proj-card::before {
+      content: ''; position: absolute; inset: 0;
+      border-radius: 16px; opacity: 0;
+      transition: opacity 0.35s;
+    }
+    /* Top accent line */
+    .proj-card::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 2px; border-radius: 99px;
+      opacity: 0.7;
+    }
+    .proj-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-h);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.6);
+    }
+    .proj-card:hover::before { opacity: 1; }
+
+    .proj-cyan::before  { background: linear-gradient(135deg, rgba(34,211,238,0.1), rgba(59,130,246,0.08)); }
+    .proj-cyan::after   { background: linear-gradient(90deg, var(--cyan), #3b82f6); }
+    .proj-purple::before{ background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(236,72,153,0.08)); }
+    .proj-purple::after { background: linear-gradient(90deg, var(--purple), var(--pink)); }
+    .proj-gold::before  { background: linear-gradient(135deg, rgba(251,191,36,0.1), rgba(239,68,68,0.07)); }
+    .proj-gold::after   { background: linear-gradient(90deg, var(--gold), #ef4444); }
+
+    .proj-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 1.1rem; position: relative;
+    }
+    .ic-c { background: rgba(34,211,238,0.12);   border: 1px solid rgba(34,211,238,0.28); }
+    .ic-p { background: rgba(139,92,246,0.12);   border: 1px solid rgba(139,92,246,0.28); }
+    .ic-g { background: rgba(251,191,36,0.12);   border: 1px solid rgba(251,191,36,0.28); }
+
+    .proj-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 0.5rem; margin-bottom: 0.65rem;
+    }
+    .proj-name { font-family: var(--display); font-weight: 700; font-size: 0.83rem; line-height: 1.3; color: var(--text); letter-spacing: 0.02em; }
+    .proj-date { font-family: var(--mono); font-size: 0.67rem; color: var(--muted); white-space: nowrap; }
+    .proj-desc { font-size: 0.84rem; color: var(--muted); margin-bottom: 1.2rem; line-height: 1.75; }
+    .proj-desc strong { color: var(--text); }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .ptag {
+      padding: 0.18rem 0.62rem; border-radius: 5px;
+      font-family: var(--mono); font-size: 0.67rem;
+      border: 1px solid;
+    }
+    .ptag-c { color: var(--cyan);   background: rgba(34,211,238,0.07);  border-color: rgba(34,211,238,0.22); }
+    .ptag-p { color: #c4b5fd;       background: rgba(139,92,246,0.07);  border-color: rgba(139,92,246,0.22); }
+    .ptag-g { color: var(--gold);   background: rgba(251,191,36,0.07);  border-color: rgba(251,191,36,0.22); }
+
+    /* ── SKILLS INFINITE SCROLL ───────────────────────── */
+    #skills { background: rgba(1,0,8,0.25); padding: 5rem 0; overflow: hidden; }
+    .skills-hdr { text-align: center; margin-bottom: 2.8rem; }
+
+    .slider-wrap { position: relative; overflow: hidden; margin-bottom: 0.8rem; }
+    .slider-wrap::before,
+    .slider-wrap::after {
+      content: ''; position: absolute; top: 0; bottom: 0;
+      z-index: 2; width: 140px; pointer-events: none;
+    }
+    .slider-wrap::before { left:  0; background: linear-gradient(90deg,  var(--space), transparent); }
+    .slider-wrap::after  { right: 0; background: linear-gradient(-90deg, var(--space), transparent); }
+
+    .strack  { display:flex; gap:0.8rem; width:max-content; animation: slide    38s linear infinite; }
+    .strack2 { display:flex; gap:0.8rem; width:max-content; animation: slideRev 44s linear infinite; }
+    .strack:hover, .strack2:hover { animation-play-state: paused; }
+
+    @keyframes slide    { from{transform:translateX(0)}    to{transform:translateX(-50%)} }
+    @keyframes slideRev { from{transform:translateX(-50%)} to{transform:translateX(0)} }
+
+    .schip {
+      display:inline-flex; align-items:center; gap:0.55rem;
+      padding:0.5rem 1.15rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(167,139,250,0.15);
+      border-radius: 99px;
+      font-size:0.8rem; font-weight:500; color: var(--dim);
+      white-space:nowrap;
+      transition: border-color 0.2s, color 0.2s, background 0.2s, box-shadow 0.2s;
+    }
+    .schip:hover {
+      border-color: rgba(167,139,250,0.5);
+      color: #c4b5fd; background: rgba(139,92,246,0.08);
+      box-shadow: 0 0 20px rgba(139,92,246,0.15);
+    }
+    .sdot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+
+    /* ── PUBLICATIONS ────────────────────────────────── */
+    #publications { background: rgba(3,0,14,0.45); }
+
+    .pub-list { display:flex; flex-direction:column; gap:1rem; }
+    .pub-card { display:flex; gap:1.3rem; align-items:flex-start; padding:1.6rem 1.8rem; }
+    .pub-num {
+      font-family: var(--display); font-size:2rem; font-weight:900;
+      line-height:1; flex-shrink:0; opacity:0.4;
+      background: linear-gradient(135deg, var(--purple), var(--cyan));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    .pub-title { font-weight:600; font-size:0.92rem; color:var(--text); margin-bottom:0.45rem; line-height:1.5; }
+    .pub-meta  { font-size:0.77rem; color:var(--muted); line-height:1.7; }
+    .pub-venue { color:var(--cyan); font-weight:500; }
+    .pub-badge {
+      display:inline-block; margin-left:0.4rem;
+      padding:0.1rem 0.55rem;
+      background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.3);
+      border-radius:4px; font-size:0.65rem; color:#a78bfa;
+      font-family:var(--mono);
+    }
+    .pub-if {
+      display:inline-block; margin-left:0.4rem;
+      padding:0.1rem 0.55rem;
+      background:rgba(74,222,128,0.08); border:1px solid rgba(74,222,128,0.25);
+      border-radius:4px; font-size:0.65rem; color:var(--green);
+      font-family:var(--mono);
+    }
+
+    /* ── EDUCATION ───────────────────────────────────── */
+    #education { background: rgba(1,0,10,0.42); }
+    .edu-grid { display:flex; flex-direction:column; gap:1rem; }
+    .edu-card {
+      display:flex; justify-content:space-between; align-items:center;
+      gap:1.5rem; padding:1.5rem 1.7rem;
+    }
+    .edu-school { font-family:var(--display); font-weight:700; font-size:0.9rem; color:var(--text); margin-bottom:0.2rem; letter-spacing:0.02em; }
+    .edu-degree { font-size:0.83rem; color:var(--muted); }
+    .edu-gpa    { font-family:var(--mono); font-size:0.76rem; color:var(--green); margin-top:0.35rem; }
+    .edu-date   { font-family:var(--mono); font-size:0.72rem; color:var(--muted); text-align:right; white-space:nowrap; flex-shrink:0; }
+
+    /* ── CONTACT ─────────────────────────────────────── */
+    #contact {
+      background: rgba(4,0,18,0.48);
+      text-align:center; padding:7rem 2rem;
+    }
+    .contact-inner { position:relative; display:inline-block; }
+    .contact-inner::before {
+      content:'';
+      position:absolute; inset:-60px;
+      background: radial-gradient(circle, rgba(88,28,235,0.2) 0%, transparent 65%);
+      pointer-events:none;
+    }
+    #contact .sec-title { font-size:clamp(1.8rem, 5vw, 3rem); margin-bottom:0.8rem; }
+    #contact p { color:var(--muted); font-size:0.93rem; max-width:440px; margin:0 auto 2.8rem; line-height:1.8; }
+    .contact-btns { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    footer {
+      border-top:1px solid rgba(167,139,250,0.1);
+      padding:2rem; text-align:center;
+      font-family:var(--mono); font-size:0.7rem; color:var(--muted);
+      position:relative; z-index:1;
+      background:rgba(1,0,8,0.6);
+    }
+    footer a { color:var(--purple); text-decoration:none; }
+    footer a:hover { color:var(--cyan); }
+
+    /* ── SCROLL REVEAL ───────────────────────────────── */
+    .reveal {
+      opacity:0; transform:translateY(30px);
+      transition: opacity 0.7s cubic-bezier(.16,1,.3,1), transform 0.7s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal.visible { opacity:1; transform:none; }
+
+    .reveal-g > * {
+      opacity:0; transform:translateY(22px);
+      transition: opacity 0.55s cubic-bezier(.16,1,.3,1), transform 0.55s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal-g.visible > *:nth-child(1){opacity:1;transform:none;transition-delay:0s}
+    .reveal-g.visible > *:nth-child(2){opacity:1;transform:none;transition-delay:.1s}
+    .reveal-g.visible > *:nth-child(3){opacity:1;transform:none;transition-delay:.2s}
+    .reveal-g.visible > *:nth-child(4){opacity:1;transform:none;transition-delay:.3s}
+    .reveal-g.visible > *:nth-child(5){opacity:1;transform:none;transition-delay:.4s}
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width:700px) {
+      nav { padding:0 1.2rem; }
+      .nav-links { gap:1.1rem; }
+      .nav-links a { font-size:0.7rem; }
+      .orbit-anchor, .saturn-wrap, .asteroid { display:none; }
+      .about-grid { grid-template-columns:1fr; }
+      .tl-date { display:none; }
+      .hero-stats { gap:1.4rem; }
+      .edu-card { flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── CANVAS STARFIELD ──────────────────────────────── -->
+<canvas id="starfield"></canvas>
+
+<!-- ── NEBULAE ───────────────────────────────────────── -->
+<div class="nebulae">
+  <div class="nebula n1"></div>
+  <div class="nebula n2"></div>
+  <div class="nebula n3"></div>
+  <div class="nebula n4"></div>
+</div>
+
+<!-- ── METEORS ───────────────────────────────────────── -->
+<div class="meteors">
+  <div class="meteor m1"></div>
+  <div class="meteor m2"></div>
+  <div class="meteor m3"></div>
+  <div class="meteor m4"></div>
+  <div class="meteor m5"></div>
+  <div class="meteor m6"></div>
+</div>
+
+<!-- ── NAV ──────────────────────────────────────────── -->
+<nav>
+  <span class="nav-logo">HVD<em>✦</em>SPACE</span>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#experience">log</a></li>
+    <li><a href="#projects">missions</a></li>
+    <li><a href="#publications">research</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────── -->
+<section id="hero">
+
+  <!-- Moon orbit system -->
+  <div class="orbit-anchor">
+    <div class="orbit-path"></div>
+    <div class="moon-wrap">
+      <div class="orbit-ring"><span class="satellite">◉</span></div>
+      <div class="moon">
+        <div class="moon-surface">
+          <div class="crater" style="width:30px;height:16px;top:34px;left:55px;"></div>
+          <div class="crater" style="width:18px;height:10px;top:74px;left:122px;"></div>
+          <div class="crater" style="width:24px;height:13px;top:132px;left:70px;"></div>
+          <div class="crater" style="width:13px;height:7px; top:48px; left:146px;"></div>
+          <div class="crater" style="width:20px;height:11px;top:102px;left:40px;"></div>
+          <div class="crater" style="width:10px;height:6px; top:88px; left:96px;"></div>
+        </div>
+        <div class="moon-shadow"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Saturn planet -->
+  <div class="saturn-wrap">
+    <div class="saturn">
+      <div class="saturn-ring"></div>
+    </div>
+  </div>
+
+  <!-- Floating asteroids -->
+  <div class="asteroid as1"></div>
+  <div class="asteroid as2"></div>
+  <div class="asteroid as3"></div>
+  <div class="asteroid as4"></div>
+  <div class="asteroid as5"></div>
+
+  <div class="horizon"></div>
+
+  <div class="hero-badge">
+    <span class="badge-dot"></span>
+    TRANSMISSION OPEN &nbsp;·&nbsp; MAY 2026
+  </div>
+
+  <h1 class="hero-name">
+    HARSHA VARDHAN<br />
+    <span class="grad-text">DASARI</span>
+  </h1>
+
+  <div class="hero-typing">
+    &gt;&nbsp;<span class="typed-word" id="typed"></span><span class="cursor"></span>
+  </div>
+
+  <p class="hero-sub">
+    Navigating the frontiers of machine intelligence — from physics-guided
+    hypernetworks to multimodal NLP and production AI systems.
+  </p>
+
+  <div class="hero-btns">
+    <a href="#projects" class="btn btn-primary">↓ Explore Missions</a>
+    <a href="https://github.com/harshadasari451" class="btn btn-ghost" target="_blank">GitHub ↗</a>
+    <a href="https://linkedin.com/in/harshadasari451" class="btn btn-ghost" target="_blank">LinkedIn ↗</a>
+    <a href="mailto:harshaguna451@gmail.com" class="btn btn-ghost">✉ Contact</a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-n">3.97</div><div class="stat-l">GPA @ Stevens</div></div>
+    <div class="stat"><div class="stat-n">2</div><div class="stat-l">Publications</div></div>
+    <div class="stat"><div class="stat-n">1806</div><div class="stat-l">CodeChef Rating</div></div>
+  </div>
+
+  <div class="scroll-hint">
+    SCROLL
+    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+    </svg>
+  </div>
+</section>
+
+<div class="div-aurora"></div>
+
+<!-- ── ABOUT ─────────────────────────────────────────── -->
+<section id="about">
+  <div class="container">
+    <p class="sec-tag reveal">✦ Sector 01 · About</p>
+    <h2 class="sec-title reveal">Who I am</h2>
+    <p class="sec-sub reveal">CS grad · researcher · builder</p>
+
+    <div class="about-grid">
+      <div class="terminal reveal">
+        <div class="terminal-bar">
+          <div class="t-dot r"></div>
+          <div class="t-dot y"></div>
+          <div class="t-dot g"></div>
+          <span class="terminal-title">~/harsha.config.js</span>
+        </div>
+        <div class="terminal-body">
+<span class="tk">const</span> <span class="tv">harsha</span> <span class="tb">=</span> <span class="tb">{</span><br/>
+&nbsp;&nbsp;name:&nbsp;&nbsp;&nbsp;&nbsp;<span class="ts">"Harsha Vardhan Dasari"</span><span class="tb">,</span><br/>
+&nbsp;&nbsp;location: <span class="ts">"Jersey City, NJ 🌍"</span><span class="tb">,</span><br/>
+&nbsp;&nbsp;degree:&nbsp;&nbsp;<span class="ts">"M.S. CS @ Stevens"</span><span class="tb">,</span><br/>
+&nbsp;&nbsp;gpa:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tn">3.97</span><span class="tb">,</span><br/>
+&nbsp;&nbsp;focus: <span class="tb">[</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="ts">"Physics-guided Deep Learning"</span><span class="tb">,</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="ts">"NLP & Multimodal AI"</span><span class="tb">,</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="ts">"Surrogate Modeling"</span><span class="tb">,</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="ts">"Financial AI"</span><br/>
+&nbsp;&nbsp;<span class="tb">],</span><br/>
+&nbsp;&nbsp;lab:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ts">"SCAI Lab @ Stevens"</span><span class="tb">,</span><br/>
+&nbsp;&nbsp;won:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ts">"QuackHack 🏆"</span><span class="tb">,</span><br/>
+&nbsp;&nbsp;seeking:&nbsp;<span class="ts">"Full-time · May 2026"</span><br/>
+<span class="tb">}</span><br/>
+<br/>
+<span class="tc">// building hypernetworks that</span><br/>
+<span class="tc">// map 1D → 2D spatial reps.</span>
+        </div>
+      </div>
+
+      <div class="about-bio reveal">
+        <p>
+          I'm a <strong>CS grad student at Stevens Institute of Technology</strong> (GPA 3.97),
+          graduating May 2026. My work lives at the intersection of
+          <strong>physics-guided deep learning</strong>, <strong>NLP</strong>, and
+          production-grade ML systems.
+        </p>
+        <p>
+          At the <strong>SCAI Lab</strong> I designed a lightweight hypernetwork (500K params)
+          that beats SOTA baselines — FNO, UNet, ResNet — while compressing training
+          from 7 min/epoch down to <strong>25 seconds (16.8× speedup)</strong>.
+        </p>
+        <p>
+          I also mentor 40+ grad students on LLMs, RAG, and agentic AI, and shipped
+          a full-stack AI fraud detection platform at <strong>90% lower cost</strong> than raw LLM inference.
+        </p>
+        <div style="margin-top:1.5rem;">
+          <a class="chip" href="mailto:harshaguna451@gmail.com">✉ harshaguna451@gmail.com</a>
+          <a class="chip" href="https://linkedin.com/in/harshadasari451" target="_blank">💼 LinkedIn</a>
+          <a class="chip" href="https://github.com/harshadasari451" target="_blank">🐙 GitHub</a>
+          <span class="chip">📍 Jersey City, NJ</span>
+          <span class="chip">🏅 AI Agents Certified · HuggingFace</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-aurora"></div>
+
+<!-- ── EXPERIENCE ─────────────────────────────────────── -->
+<section id="experience">
+  <div class="container">
+    <p class="sec-tag reveal">✦ Sector 02 · Mission Log</p>
+    <h2 class="sec-title reveal">Where I've worked</h2>
+    <p class="sec-sub reveal">Research labs · teaching · internships</p>
+
+    <div class="timeline reveal">
+
+      <div class="tl-item">
+        <div class="tl-planet"></div>
+        <div class="tl-header">
+          <div>
+            <div class="tl-role">ML Research Assistant</div>
+            <div class="tl-org">Stevens Institute of Technology — SCAI Lab</div>
+            <div class="tl-lab">Physics-guided deep learning · surrogate modeling · high-dimensional simulations</div>
+          </div>
+          <div class="tl-date">Jan 2025 → Present</div>
+        </div>
+        <ul>
+          <li>Designed <strong>lightweight hypernetwork</strong> (500K params) — 30% lower MSE vs. SOTA (FNO, UNet, ResNet), enabling 4–6× higher experimental throughput</li>
+          <li>Compressed training from 7 min/epoch → <strong>25 sec (16.8× speedup)</strong> via custom JAX data loaders and neural architecture redesign</li>
+          <li>First-author paper in prep: <strong>"Extrusion Networks to Overcome the Curse of Dimensionality"</strong></li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-planet"></div>
+        <div class="tl-header">
+          <div>
+            <div class="tl-role">NLP Course Assistant</div>
+            <div class="tl-org">Stevens Institute of Technology — CS Department</div>
+          </div>
+          <div class="tl-date">Sep – Dec 2025</div>
+        </div>
+        <ul>
+          <li>Mentored <strong>40 graduate students</strong> on LLMs, RAG systems, agentic AI (LangChain, MCP), and Transformers</li>
+          <li>Improved average assignment scores by <strong>15%</strong> through coding sessions and evaluation methodology workshops</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-planet"></div>
+        <div class="tl-header">
+          <div>
+            <div class="tl-role">NLP Research Intern</div>
+            <div class="tl-org">IIT Patna — AI/NLP Research Lab (Prof. Sriparna Saha)</div>
+            <div class="tl-lab">45-member lab · top-tier NLP & ML venues · sentiment · multimodal · financial AI</div>
+          </div>
+          <div class="tl-date">Jun 2023 – May 2024</div>
+        </div>
+        <ul>
+          <li>Built <strong>F-ACE multimodal framework</strong> — 90% accuracy on financial complaint classification, outperforming GPT-4, Gemini & Claude using Sentence Transformers + ResNet-152 + BLIP-2</li>
+          <li>Improved complaint support efficiency by <strong>60%</strong> with explainable GenAI pipeline (fine-tuned BART-Large)</li>
+          <li>Cut manual evaluation time by <strong>33%</strong> via automated BLEU, ROUGE, TensorFlow benchmarking on 10K+ records</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="div-aurora"></div>
+
+<!-- ── PROJECTS ─────────────────────────────────────────── -->
+<section id="projects">
+  <div class="container">
+    <p class="sec-tag reveal">✦ Sector 03 · Featured Deployed Missions</p>
+    <h2 class="sec-title reveal">Things I've built</h2>
+    <p class="sec-sub reveal">From research prototypes to production systems</p>
+
+    <div class="projects-grid reveal-g">
+
+      <div class="proj-card proj-cyan">
+        <div class="proj-icon ic-c">🔍</div>
+        <div class="proj-header">
+          <div class="proj-name">Fraud Lens AI</div>
+          <div class="proj-date">Mar 2026</div>
+        </div>
+        <p class="proj-desc">
+          AI fraud detection platform achieving <strong>90% lower cost</strong> than LLMs with only 3% accuracy tradeoff.
+          Combines 6 forensic image signals with an 18-feature stylometric pipeline — 90% accuracy with interpretable probabilistic risk scoring.
+        </p>
+        <div class="proj-tags">
+          <span class="ptag ptag-c">React</span>
+          <span class="ptag ptag-c">FastAPI</span>
+          <span class="ptag ptag-c">Docker</span>
+          <span class="ptag ptag-c">Image Forensics</span>
+        </div>
+      </div>
+
+      <div class="proj-card proj-purple">
+        <div class="proj-icon ic-p">💬</div>
+        <div class="proj-header">
+          <div class="proj-name">Financial Aspect & Complaint Extractor</div>
+          <div class="proj-date">Oct 2023 – Jan 2025</div>
+        </div>
+        <p class="proj-desc">
+          Multi-modal classifier fusing BERT + ResNet with attention-weighted feature fusion.
+          <strong>90% accuracy</strong> across 10 financial domains; 40% better summarization via generative causal explanation models.
+        </p>
+        <div class="proj-tags">
+          <span class="ptag ptag-p">BERT</span>
+          <span class="ptag ptag-p">ResNet</span>
+          <span class="ptag ptag-p">Multimodal</span>
+          <span class="ptag ptag-p">BART</span>
+        </div>
+      </div>
+
+      <div class="proj-card proj-gold">
+        <div class="proj-icon ic-g">📡</div>
+        <div class="proj-header">
+          <div class="proj-name">GAUSEE-FM: GenAI for Finance</div>
+          <div class="proj-date">Oct 2023 – Feb 2024</div>
+        </div>
+        <p class="proj-desc">
+          <strong>93% sentiment accuracy</strong> on real-time NASDAQ data — 25% above BERT & BiLSTM baselines.
+          Dual Attention (Additive + Multi-Head) with FinBERT. Designed FinEMA dataset for emotion detection.
+        </p>
+        <div class="proj-tags">
+          <span class="ptag ptag-g">Transformers</span>
+          <span class="ptag ptag-g">FinBERT</span>
+          <span class="ptag ptag-g">BART-Large</span>
+          <span class="ptag ptag-g">Attention</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="div-aurora"></div>
+
+<!-- ── SKILLS SCROLL ────────────────────────────────────── -->
+<section id="skills">
+  <div class="skills-hdr reveal">
+    <p class="sec-tag">✦ Sector 04 · Arsenal</p>
+    <h2 class="sec-title">Tools & Technologies</h2>
+  </div>
+
+  <div class="slider-wrap">
+    <div class="strack" id="row1"></div>
+  </div>
+  <div class="slider-wrap">
+    <div class="strack2" id="row2"></div>
+  </div>
+</section>
+
+<div class="div-aurora"></div>
+
+<!-- ── PUBLICATIONS ─────────────────────────────────────── -->
+<section id="publications">
+  <div class="container">
+    <p class="sec-tag reveal">✦ Sector 05 · Research Transmissions</p>
+    <h2 class="sec-title reveal">Publications</h2>
+    <p class="sec-sub reveal">Peer-reviewed work in ML & NLP</p>
+
+    <div class="pub-list reveal-g">
+
+      <div class="pub-card glass">
+        <div class="pub-num">01</div>
+        <div>
+          <div class="pub-title">Extrusion Networks to Overcome the Curse of (Simulation) Dimensionality</div>
+          <div class="pub-meta">
+            H. V. Dasari, N. Muralidhar ·
+            <span class="pub-venue">In Preparation</span>
+            <span class="pub-badge">First Author</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card glass">
+        <div class="pub-num">02</div>
+        <div>
+          <div class="pub-title">Let's Decipher the Origin: Towards Multimodal Aspect-Based Explainable Complaints in Finance</div>
+          <div class="pub-meta">
+            S. Das, A. Deo, H. V. Dasari, S. Saha, A. Maurya ·
+            <span class="pub-venue">IEEE TCSS</span> · DOI: 10.1109/TCSS.2025.3623387
+            <span class="pub-badge">Co-Author</span>
+            <span class="pub-if">IF 4.9</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="div-aurora"></div>
+
+<!-- ── EDUCATION ─────────────────────────────────────────── -->
+<section id="education">
+  <div class="container">
+    <p class="sec-tag reveal">✦ Sector 06 · Origin Story</p>
+    <h2 class="sec-title reveal">Academic Background</h2>
+    <p class="sec-sub reveal">Where it all started</p>
+
+    <div class="edu-grid reveal-g">
+
+      <div class="edu-card glass">
+        <div>
+          <div class="edu-school">Stevens Institute of Technology</div>
+          <div class="edu-degree">M.S. Computer Science · Hoboken, NJ</div>
+          <div class="edu-gpa">GPA 3.97 / 4.0 &nbsp;·&nbsp; QuackHack Winner &nbsp;·&nbsp; CodeChef 1806</div>
+        </div>
+        <div class="edu-date">Expected<br />May 2026</div>
+      </div>
+
+      <div class="edu-card glass">
+        <div>
+          <div class="edu-school">Indian Institute of Technology (IIT) Patna</div>
+          <div class="edu-degree">B.Tech Mechanical Engineering · Patna, India</div>
+          <div class="edu-gpa">Research: NLP · Sentiment Analysis · Financial AI</div>
+        </div>
+        <div class="edu-date">May 2024</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="div-aurora"></div>
+
+<!-- ── CONTACT ───────────────────────────────────────────── -->
+<section id="contact">
+  <div class="contact-inner">
+    <p class="sec-tag reveal">✦ Sector 07 · Open Channel</p>
+    <h2 class="sec-title reveal">Let's Build Something.</h2>
+  </div>
+  <p class="reveal">
+    Seeking full-time ML / AI engineering roles starting May 2026.
+    Whether it's research, production systems, or both — I'm listening.
+  </p>
+  <div class="contact-btns reveal">
+    <a href="mailto:harshaguna451@gmail.com" class="btn btn-primary">✦ harshaguna451@gmail.com</a>
+    <a href="https://linkedin.com/in/harshadasari451" class="btn btn-ghost" target="_blank">LinkedIn ↗</a>
+    <a href="https://github.com/harshadasari451" class="btn btn-ghost" target="_blank">GitHub ↗</a>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+<footer>
+  Harsha Vardhan Dasari · 2026 ·
+  <a href="https://github.com/harshadasari451">github.com/harshadasari451</a>
+  &nbsp;·&nbsp; Built from scratch — no frameworks
+</footer>
+
+<!-- ── SCRIPTS ───────────────────────────────────────────── -->
+<script>
+/* ════════════════════════════════════════════
+   CANVAS STARFIELD + MOUSE PARALLAX
+════════════════════════════════════════════ */
+(function() {
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let W, H, mouseX = 0, mouseY = 0;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    mouseX = W / 2; mouseY = H / 2;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+
+  // Star palette: mostly white, some colored
+  const COLORS = [
+    '#f8fafc','#f8fafc','#f8fafc','#f8fafc','#f8fafc', // 5x white
+    '#93c5fd', // blue
+    '#c4b5fd', // purple
+    '#fde68a', // gold
+    '#fca5a5', // red
+    '#6ee7b7', // teal
+  ];
+
+  const STAR_COUNT = 420;
+  let stars = [];
+
+  function initStars() {
+    stars = [];
+    for (let i = 0; i < STAR_COUNT; i++) {
+      const r = Math.random() * 1.6 + 0.2;
+      stars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        opacity: Math.random(),
+        speed: (Math.random() * 0.006 + 0.001) * (Math.random() > 0.5 ? 1 : -1),
+        depth: Math.random(), // parallax depth
+      });
+    }
+  }
+  initStars();
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    const mx = (mouseX - W / 2) / W;
+    const my = (mouseY - H / 2) / H;
+
+    for (const s of stars) {
+      // Twinkle
+      s.opacity += s.speed;
+      if (s.opacity >= 1)    { s.opacity = 1;    s.speed = -Math.abs(s.speed); }
+      if (s.opacity <= 0.05) { s.opacity = 0.05; s.speed =  Math.abs(s.speed); }
+
+      const px = s.x + mx * s.depth * 28;
+      const py = s.y + my * s.depth * 28;
+
+      // Glow halo for larger stars
+      if (s.r > 1.0) {
+        const grd = ctx.createRadialGradient(px, py, 0, px, py, s.r * 4);
+        grd.addColorStop(0, s.color + 'aa');
+        grd.addColorStop(1, 'transparent');
+        ctx.globalAlpha = s.opacity * 0.3;
+        ctx.beginPath();
+        ctx.arc(px, py, s.r * 4, 0, Math.PI * 2);
+        ctx.fillStyle = grd;
+        ctx.fill();
+      }
+
+      // Star core
+      ctx.globalAlpha = s.opacity;
+      ctx.fillStyle = s.color;
+      ctx.beginPath();
+      ctx.arc(px, py, s.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ════════════════════════════════════════════
+   TYPING ANIMATION
+════════════════════════════════════════════ */
+(function() {
+  const words = [
+    'ML Researcher',
+    'NLP Engineer',
+    'Deep Learning',
+    'AI Architect',
+    'Hypernetwork Designer',
+    'Space Explorer of AI',
+  ];
+  const el = document.getElementById('typed');
+  let wi = 0, ci = 0, deleting = false;
+
+  function type() {
+    const word = words[wi];
+    if (!deleting) {
+      ci++;
+      el.textContent = word.slice(0, ci);
+      if (ci === word.length) {
+        deleting = true;
+        setTimeout(type, 1800);
+        return;
+      }
+    } else {
+      ci--;
+      el.textContent = word.slice(0, ci);
+      if (ci === 0) {
+        deleting = false;
+        wi = (wi + 1) % words.length;
+      }
+    }
+    setTimeout(type, deleting ? 48 : 95);
+  }
+  type();
+})();
+
+/* ════════════════════════════════════════════
+   SCROLL REVEAL
+════════════════════════════════════════════ */
+(function() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal, .reveal-g').forEach(el => obs.observe(el));
+})();
+
+/* ════════════════════════════════════════════
+   INFINITE SKILL SLIDERS
+════════════════════════════════════════════ */
+(function() {
+  const row1 = [
+    { name:'Python',        color:'#4ade80' },
+    { name:'PyTorch',       color:'#fb923c' },
+    { name:'JAX',           color:'#a78bfa' },
+    { name:'TensorFlow',    color:'#f87171' },
+    { name:'HuggingFace',   color:'#fbbf24' },
+    { name:'Transformers',  color:'#60a5fa' },
+    { name:'BERT',          color:'#34d399' },
+    { name:'BART',          color:'#a78bfa' },
+    { name:'FinBERT',       color:'#22d3ee' },
+    { name:'BLIP-2',        color:'#f472b6' },
+    { name:'LangChain',     color:'#4ade80' },
+    { name:'React',         color:'#60a5fa' },
+    { name:'FastAPI',       color:'#34d399' },
+    { name:'Docker',        color:'#22d3ee' },
+    { name:'Git',           color:'#fb923c' },
+  ];
+  const row2 = [
+    { name:'C++',                   color:'#60a5fa' },
+    { name:'JavaScript',            color:'#fbbf24' },
+    { name:'ResNet',                color:'#f87171' },
+    { name:'FNO',                   color:'#a78bfa' },
+    { name:'UNet',                  color:'#34d399' },
+    { name:'Hypernetworks',         color:'#f472b6' },
+    { name:'Deep Learning',         color:'#60a5fa' },
+    { name:'NLP',                   color:'#22d3ee' },
+    { name:'Multimodal Learning',   color:'#fbbf24' },
+    { name:'Surrogate Modeling',    color:'#4ade80' },
+    { name:'Financial AI',          color:'#fb923c' },
+    { name:'Generative AI',         color:'#a78bfa' },
+    { name:'Attention Mechanisms',  color:'#f87171' },
+    { name:'RAG',                   color:'#34d399' },
+    { name:'Agentic AI',            color:'#f472b6' },
+  ];
+
+  function buildRow(skills, id) {
+    const track = document.getElementById(id);
+    const duped = [...skills, ...skills, ...skills];
+    duped.forEach(s => {
+      const chip = document.createElement('div');
+      chip.className = 'schip';
+      chip.innerHTML = `<span class="sdot" style="background:${s.color};box-shadow:0 0 6px ${s.color}66"></span>${s.name}`;
+      track.appendChild(chip);
+    });
+  }
+
+  buildRow(row1, 'row1');
+  buildRow(row2, 'row2');
+})();
+</script>
+</body>
+</html>
